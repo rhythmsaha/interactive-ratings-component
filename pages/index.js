@@ -1,8 +1,40 @@
 import Head from "next/head";
+import { useState } from "react";
+import Card from "../components/Card";
+import Rating from "../components/Rating";
+import Thanks from "../components/Thanks";
 
 export default function Home() {
+    const [vote, setVote] = useState(null);
+
+    const submitHandler = (score) => {
+        setVote(score);
+        console.log(score);
+    };
+
+    if (vote && vote > 0) {
+        return (
+            <div className="min-h-screen bg-gray-900">
+                <Head>
+                    <title>Rating Component</title>
+                    <meta
+                        name="description"
+                        content="Designed by Rhythm Saha"
+                    />
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+
+                <div className="max-w-md mx-auto w-11/12 pt-20">
+                    <Card>
+                        <Thanks selected={vote} />
+                    </Card>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div>
+        <div className="min-h-screen bg-gray-900">
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -12,7 +44,11 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div></div>
+            <div className="max-w-md mx-auto w-11/12 pt-20">
+                <Card>
+                    <Rating onSubmit={submitHandler} />
+                </Card>
+            </div>
         </div>
     );
 }
